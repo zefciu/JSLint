@@ -1,0 +1,34 @@
+#!/usr/bin/nodejs
+
+
+(function () {
+    var jslint, data = '', i, l, error;
+    jslint = require('./jslint.js');
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+
+    process.stdin.on('data', function(chunk) {
+        data += chunk
+    });
+
+    process.stdin.on('end', function() {
+        var result;
+        result = jslint.jslint(data, {})
+        if (result) { 
+            console.log('Your code is perfect, sir!');
+        } else {
+            for (i = 0, l = jslint.jslint.errors.length; i < l; i++) {
+                error = jslint.jslint.errors[i];
+                if (error == null) {
+                    console.log('STOP!');
+                } else {
+                    console.log(error.line);
+                    console.log(error.reason);
+                    console.log(error.evidence);
+                    console.log('---------------');
+                }
+            }
+        }
+    });
+}());
+

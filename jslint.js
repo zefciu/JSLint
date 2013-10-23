@@ -4250,3 +4250,7 @@ klass:              do {
 
     return itself;
 }());
+
+if (module !== undefined) {
+    module.exports = {jslint: JSLINT};
+}
